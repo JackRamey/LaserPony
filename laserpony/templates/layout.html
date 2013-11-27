@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+    <title>LASER PONY</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <style type="text/css">
+        body {
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+    </style>
+</head> 
+<body>
+    <!-- BEGIN NAVBAR -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url_for('index') }}">LP</a>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="#">Spot1</a>
+                        </li>
+                        <li>
+                            <a href="#">Spot2</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav pull-right">
+                    {% if not current_user.is_anonymous() %}
+                        <li>
+                            <a href="{{ url_for('logout') }}">Log Out</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ url_for('login') }}">Log In</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('signup') }}">Sign Up</a>
+                        </li>
+                    {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END NAVBAR -->
+    <!-- BEGIN BODY CONTENT -->
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+    <!-- END BODY CONTENT -->
+    <!-- BEGIN FOOTER -->
+    <!-- END FOOTER -->
+    <!-- Site dependent scripts here for faster page loading -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+</body>
+</html>
