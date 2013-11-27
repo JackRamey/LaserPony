@@ -1,3 +1,4 @@
+# Python files
 *.py[cod]
 
 # C extensions
@@ -34,3 +35,13 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# Config Files
+*.cfg
+
+# Vim files
+*.un~
+*.swp
+
+# VirtualEnv
+venv
