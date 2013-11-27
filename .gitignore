@@ -40,8 +40,8 @@ nosetests.xml
 *.cfg
 
 # Vim files
-*.un~
-*.swp
+.*.un~
+.*.swp
 
 # VirtualEnv
 venv
