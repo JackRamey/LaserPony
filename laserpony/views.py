@@ -14,7 +14,8 @@ class IndexView(View):
 
     def dispatch_request(self):
         if current_user.is_anonymous():
-            return redirect(url_for('login'))
+            return render_template('index.html')
+            #return redirect(url_for('login'))
         else:
             return render_template('index.html')
 
@@ -24,9 +25,18 @@ class LoginView(View):
 
     def dispatch_request(self):
         if request.method == 'POST':
-            return render_template('login.html')
-        elif request.method == 'GET':
-            return render_template('login.html')
+            name = request.form['username']
+            password = request.form['password']
+            user = User.query.filter_by(name=name).first()
+
+            if not user or not user.check_password(password):
+                error = "Username and password do not match!"
+                return render_template('login.html', error=error)
+            else:
+                login_user(user)
+                return redirect(url_for('index'))
+        #If not a POST request, just render the login screen
+        return render_template('login.html')
 
 
 class LogoutView(View):
@@ -62,7 +72,7 @@ class SignUpView(View):
             user = User(name, email, password1)
             user.save()
             login_user(user)
-            return redirect(url_for('index)'))
+            return redirect(url_for('index'))
         #Handle GET
         elif request.method == 'GET':
             return render_template('signup.html')
