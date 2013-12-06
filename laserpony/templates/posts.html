@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{%block body %}
+{% if posts %}
+<dl class="dl-horizontal">
+{% for post in posts %}
+    <dt><a href={{ url_for('post', slug=post.slug) }}>{{ post.title }}</a></dt>
+    <dd>{{ post.created_at.strftime('%H:%M %Y-%m-%d') }}</dd>
+{% endfor %}
+</dl>
+{% endif %}
+{% endblock %}
