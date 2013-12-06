@@ -4,6 +4,7 @@ from flask import Flask
 app = Flask(__name__)
 app.config.from_pyfile('laserpony.cfg', silent=False)
 
+"""
 if not app.debug:
     import os
     import logging
@@ -16,5 +17,6 @@ if not app.debug:
     file_handler.setLevel(logging.INFO)
     app.logger.addHandler(file_handler)
     app.logger.info('errors')
+"""
 
 import views
