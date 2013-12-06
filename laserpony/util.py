@@ -1,11 +1,10 @@
-from flask.ext.mongoalchemy import MongoAlchemy
-from flask_login import LoginManager
 from laserpony import app
+from flask_mongoengine import MongoEngine
+from flask_login import LoginManager
 
-#Setup Database (MongoDB via MongoAlchemy)
-db = MongoAlchemy(app)
+#Database
+db = MongoEngine(app)
 
-#Setup Login Manager
-login_manager = LoginManager()
-login_manager.setup_app(app)
+#Login Manager
+login_manager = LoginManager(app)
 

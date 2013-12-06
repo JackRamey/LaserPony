@@ -2,46 +2,33 @@
 <html>
 <head>
 </head>
-    <title>LASER PONY</title>
+    <title>{{ config['BLOG_NAME'] }}</title>
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/sticky-footer.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
     <style type="text/css">
         body {
             padding-top: 50px;
-            padding-bottom: 50px;
         }
     </style>
 </head> 
 <body>
+<div id=wrap>
     <!-- BEGIN NAVBAR -->
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url_for('index') }}">LP</a>
+            <a class="navbar-brand" href="{{ url_for('index') }}">{{ config['BLOG_NAME'] }}</a>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="#">Spot1</a>
+                            <a href="{{ url_for('posts') }}">Posts</a>
                         </li>
                         <li>
-                            <a href="#">Spot2</a>
+                            <a href="#">About</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav pull-right">
-                    {% if not current_user.is_anonymous() %}
-                        <li>
-                            <a href="{{ url_for('logout') }}">Log Out</a>
-                        </li>
-                    {% else %}
-                        <li>
-                            <a href="{{ url_for('login') }}">Log In</a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('signup') }}">Sign Up</a>
-                        </li>
-                    {% endif %}
                     </ul>
-                </div>
             </div>
         </div>
     </div>
@@ -51,7 +38,13 @@
         {% block body %}{% endblock %}
     </div>
     <!-- END BODY CONTENT -->
+</div>
     <!-- BEGIN FOOTER -->
+    <div id="footer">
+        <div class="container">
+            <p class="text-muted">Powered by <a href="https://github.com/JackRamey/LaserPony">LaserPony</a></p>
+        </div>
+    </div>
     <!-- END FOOTER -->
     <!-- Site dependent scripts here for faster page loading -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
