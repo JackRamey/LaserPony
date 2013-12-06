@@ -11,27 +11,14 @@ class Post(db.Document):
     slug = db.StringField(max_length=255, required=True)
     body = db.StringField(required=True)
 
-"""
 class User(db.Document):
     name = db.StringField(max_length=64, required=True)
     email = db.StringField(max_length=254)
-    password_hash = db.StringField()
-    authenticated = db.BoolField()
-    active = db.BoolField()
-    admin = db.BoolField()
-
-    def __init__(self, name, email, password,
-                active=False, admin=False, authenticated=False):
-        password_hash = generate_password_hash(password)
-
-        super(User, self).__init__(
-            name=name,
-            email=email,
-            password_hash=password_hash,
-            active=active,
-            admin=admin,
-            authenticated=authenticated
-        )
+    password_hash = db.StringField(required=True)
+    active = db.BooleanField()
+    admin = db.BooleanField()
+    anonymous = db.BooleanField(default=False)
+    authenticated = db.BooleanField()
 
     def check_password(self, password):
             return check_password_hash(self.password, password)
@@ -61,8 +48,7 @@ class Anonymous(AnonymousUserMixin):
 
 @login_manager.user_loader
 def load_user(userid):
-    return User.query.filter(User.name == userid).first()
+    return User.objects.get(name=userid)
 
 login_manager.anonymous_user = Anonymous
-"""
 
