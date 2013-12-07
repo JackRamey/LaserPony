@@ -19,4 +19,5 @@ if not app.debug:
     app.logger.info('errors')
 """
 
-import views
+from views.index import *
+from views.post import *
