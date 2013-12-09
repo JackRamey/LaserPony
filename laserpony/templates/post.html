@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block body %}
-<h3>
+<h1>
     {{ post.title }}
     {% if current_user.is_admin() %}
     <div class="btn-group">
@@ -17,9 +17,9 @@
         </ul>
     </div>
     {% endif %}
-</h3>
+</h1>
 <small>{{ post.created_at.strftime('%H:%M %Y-%m-%d') }}</small>
 {% filter markdown %}
-<p>{{ post.body }}</p>
+{{ post.body }}
 {% endfilter %}
 {% endblock %}
