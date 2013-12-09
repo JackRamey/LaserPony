@@ -2,7 +2,7 @@
 {%block body %}
 {% if current_user.is_admin() %}
 <div>
-    <button type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span></button>
+    <a href="{{ url_for('post_create') }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span></a>
 </div>
 {% endif %}
 {% if posts %}
