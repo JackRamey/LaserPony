@@ -8,13 +8,17 @@
   <div class="form-group">
     <label class="control-label col-lg-4" for="name">User Name</label>
     <div class="col-lg-4">
-      <input type="text" class="form-control" name="name" placeholder="C3PO">
+      <input type="text" class="form-control" name="name"
+        {% if args['name'] != '' %}value="{{args['name']}}"{% endif %}
+        placeholder="C3PO">
     </div>
   </div>
   <div class="form-group">
     <label class="control-label col-lg-4" for="email">Email</label>
     <div class="col-lg-4">
-      <input type="text" class="form-control" name="email" placeholder="C3PO@rebels.com">
+      <input type="text" class="form-control" name="email"
+        {% if args['email'] != '' %}value="{{args['email']}}"{% endif %}
+        placeholder="C3PO@rebels.com">
     </div>
   </div>
   <div class="form-group">

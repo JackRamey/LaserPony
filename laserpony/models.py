@@ -16,7 +16,7 @@ class User(db.Document):
     email = db.StringField(max_length=254)
     password_hash = db.StringField(required=True)
     active = db.BooleanField()
-    admin = db.BooleanField()
+    admin = db.BooleanField(default=False)
     anonymous = db.BooleanField(default=False)
     authenticated = db.BooleanField()
 
@@ -41,6 +41,14 @@ class User(db.Document):
     def get_id(self):
         return self.name
 
+    def __repr__(self):
+        return '<%s: %s, %s>' % (self.__class__.__name__, self.name, self.email)
+
+    def __str__(self):
+        return '<%s: %s, %s>' % (self.__class__.__name__, self.name, self.email)
+
+    def __unicode__(self):
+        return '<%s: %s, %s>' % (self.__class__.__name__, self.name, self.email)
 
 class Anonymous(AnonymousUserMixin):
     def is_admin(self):
