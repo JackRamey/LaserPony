@@ -3,5 +3,9 @@ BLOG_NAME = "Jack's Blog"
 SECRET_KEY = 'sosecretplsdonttell'
 #Database Stuff
 MONGODB_SETTINGS = {'DB': "laserpony"}
+#Default Admin
+DEFAULT_ADMIN_NAME='admin'
+DEFAULT_ADMIN_EMAIL='admin@admin.com'
+DEFAULT_ADMIN_PASSWORD='admin'
 
 
