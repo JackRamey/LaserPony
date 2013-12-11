@@ -56,7 +56,7 @@ class Anonymous(AnonymousUserMixin):
 
 @login_manager.user_loader
 def load_user(userid):
-    return User.objects.get(name=userid)
+    return User.objects(name=userid).first()
 
 login_manager.anonymous_user = Anonymous
 
