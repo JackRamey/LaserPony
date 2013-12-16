@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+<br />
+<br />
+<p>Type 'DELETE' to confirm deletion of the post "{{ post.title }}"</p>
+<form class="form-inline" role="form" method="post">
+    <div class="form-group">
+        <input type="text" class="form-control" name="delete-text">
+    </div>
+    <button type="submit" class="btn btn-danger btn-sm">Delete!</button>
+</form>
+<form class="form-horizontal" role>
+</form>
+{% endblock %}
