@@ -1,3 +1,6 @@
+{% set navigation_bar = [
+    ( 'posts', 'Posts')
+] %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,12 +24,11 @@
             <a class="navbar-brand" href="{{ url_for('index') }}">{{ config['BLOG_NAME'] }}</a>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li>
-                            <a href="{{ url_for('posts') }}">Posts</a>
+                    {% for id, caption in navigation_bar %}
+                        <li{% if id == active_page %} class="active"{% endif %}>
+                            <a href="{{ url_for(id) }}">{{ caption }}</a>
                         </li>
-                        <li>
-                            <a href="#">About</a>
-                        </li>
+                    {% endfor %}
                     </ul>
                     <ul class="nav navbar-nav pull-right">
                     {% if current_user.is_anonymous() %}

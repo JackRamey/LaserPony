@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, url_for
 from flask.views import View
-from flask_login import login_required
+from flask_login import login_required, current_user
 from bson.objectid import ObjectId
 from laserpony import app
 from laserpony.models import Post
@@ -63,11 +63,18 @@ class PostDelete(View):
         post = Post.objects(id=ObjectId(post_id)).first()
         if current_user.is_admin():
             if request.method == 'POST':
-                pass
+                delete_text = request.form['delete-text']
+                print(delete_text)
+                if delete_text == 'DELETE':
+                    post.delete()
+                    return redirect(url_for('posts'))
+                else:
+                    error = "Confirmation text was not correct."
+                    return render_template('post_delete.html', post=post, error=error)
             else:
-                pass
+                return render_template('post_delete.html', post=post)
         else:
-            pass
+            return redirect(url_for('posts'))
 
 #Page View Rules
 app.add_url_rule('/posts/',
@@ -79,5 +86,5 @@ app.add_url_rule('/posts/create/',
 app.add_url_rule('/posts/edit/<post_id>',
                 view_func=PostEdit.as_view('post_edit'))
 app.add_url_rule('/posts/delete/<post_id>',
-                view_func=PostEdit.as_view('post_delete'))
+                view_func=PostDelete.as_view('post_delete'))
 
