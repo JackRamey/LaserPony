@@ -19,6 +19,7 @@ class User(db.Document):
     admin = db.BooleanField(default=False)
     anonymous = db.BooleanField(default=False)
     authenticated = db.BooleanField()
+    author = db.BooleanField(default=False)
 
     def check_password(self, password):
             return check_password_hash(self.password, password)
@@ -38,6 +39,9 @@ class User(db.Document):
     def is_authenticated(self):
         return self.authenticated
 
+    def is_author(self):
+        return self.can_post
+
     def get_id(self):
         return self.name
 
@@ -50,7 +54,12 @@ class User(db.Document):
     def __unicode__(self):
         return '<%s: %s, %s>' % (self.__class__.__name__, self.name, self.email)
 
+
 class Anonymous(AnonymousUserMixin):
+
+    def is_author(self):
+        return False
+
     def is_admin(self):
         return False
 

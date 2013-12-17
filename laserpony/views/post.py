@@ -28,12 +28,15 @@ class PostCreate(View):
 
     @login_required
     def dispatch_request(self):
+        if not current_user.is_author():
+            redirect(url_for('index'))
         if request.method == 'POST':
             title = request.form['title']
             slug = request.form['slug']
             body = request.form['body']
             newPost = Post(title=title,slug=slug,body=body)
-            newPost.save()
+            if current_user.is_author():
+                newPost.save()
             return redirect(url_for('posts'))
         else:
             return render_template('post_create_edit.html', post=None)
