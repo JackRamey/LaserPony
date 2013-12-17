@@ -46,6 +46,7 @@ class SignUpView(View):
     methods = ['GET', 'POST']
 
     def dispatch_request(self):
+        return render_template('disabled.html')
         if request.method == 'POST':
             name = request.form['name']
             email = request.form['email']
