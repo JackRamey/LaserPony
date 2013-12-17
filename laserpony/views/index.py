@@ -2,14 +2,15 @@ from flask import redirect, render_template, request, url_for
 from flask.views import View
 from flask_login import login_user, logout_user
 from laserpony import app
-from laserpony.models import User
+from laserpony.models import Post, User
 
 #Views
 class IndexView(View):
     methods = ['GET']
 
     def dispatch_request(self):
-        return render_template('index.html')
+        posts = Post.objects.order_by('created_at').limit(app.config['NUM_POSTS_HOMEPAGE'])
+        return render_template('index.html', posts=posts)
 
 #Login
 class LogInView(View):

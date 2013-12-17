@@ -1,3 +1,27 @@
 {% extends 'layout.html' %}
 {%block body %}
+{% for post in posts %}
+<h1>
+    <a href="{{ url_for('post',slug=post.slug) }}">{{ post.title }}</a>
+    {% if current_user.is_admin() %}
+    <div class="btn-group">
+        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-cog"></span> <b class="caret"></b>
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+                <a href="{{ url_for('post_edit', post_id=post.id) }}" role="button">Edit</a>
+            </li>
+            <li>
+                <a href="{{ url_for('post_delete', post_id=post.id) }}" role="button">Delete</a>
+            </li>
+        </ul>
+    </div>
+    {% endif %}
+</h1>
+<small>{{ post.created_at.strftime(config['DATETIME_FORMAT']) }}</small>
+{% filter markdown %}
+{{ post.body }}
+{% endfilter %}
+{% endfor %}
 {% endblock %}

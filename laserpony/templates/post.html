@@ -18,7 +18,7 @@
     </div>
     {% endif %}
 </h1>
-<small>{{ post.created_at.strftime('%H:%M %Y-%m-%d') }}</small>
+<small>{{ post.created_at.strftime(config['DATETIME_FORMAT']) }}</small>
 {% filter markdown %}
 {{ post.body }}
 {% endfilter %}

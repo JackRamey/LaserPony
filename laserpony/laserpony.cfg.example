@@ -1,11 +1,16 @@
 #Basic Configurables
-BLOG_NAME = "Jack's Blog"
-SECRET_KEY = 'sosecretplsdonttell'
+BLOG_NAME = "LaserPony Blog"
+NUM_POSTS_HOMEPAGE = 5
+DATE_FORMAT = '%m-%d-%Y'
+TIME_FORMAT = '%I:%M %p'
+DATETIME_FORMAT = '%I:%M %p %m-%d-%Y'
 #Database Stuff
 MONGODB_SETTINGS = {'DB': "laserpony"}
 #Default Admin
 DEFAULT_ADMIN_NAME='admin'
 DEFAULT_ADMIN_EMAIL='admin@admin.com'
 DEFAULT_ADMIN_PASSWORD='admin'
+#App Stuff
+SECRET_KEY = 'sosecretplsdonttell'
 
 
