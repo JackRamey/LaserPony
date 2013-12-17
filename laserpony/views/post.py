@@ -29,7 +29,7 @@ class PostCreate(View):
     @login_required
     def dispatch_request(self):
         if not current_user.is_author():
-            redirect(url_for('index'))
+            return redirect(url_for('index'))
         if request.method == 'POST':
             title = request.form['title']
             slug = request.form['slug']
@@ -47,6 +47,8 @@ class PostEdit(View):
 
     @login_required
     def dispatch_request(self, post_id):
+        if not user.is_author():
+            return redirect(url_for('index'))
         post = Post.objects(id=ObjectId(post_id)).first()
         if request.method == 'POST':
             post.title = request.form['title']
