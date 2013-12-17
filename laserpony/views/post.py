@@ -47,7 +47,7 @@ class PostEdit(View):
 
     @login_required
     def dispatch_request(self, post_id):
-        if not user.is_author():
+        if not current_user.is_author():
             return redirect(url_for('index'))
         post = Post.objects(id=ObjectId(post_id)).first()
         if request.method == 'POST':

@@ -40,7 +40,7 @@ class User(db.Document):
         return self.authenticated
 
     def is_author(self):
-        return self.can_post
+        return self.author
 
     def get_id(self):
         return self.name
