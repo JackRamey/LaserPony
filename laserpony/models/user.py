@@ -36,6 +36,13 @@ class User(db.Document):
     def get_id(self):
         return self.name
 
+    @staticmethod
+    def create_user(name, email, password):
+        newUser = User(name,email)
+        newUser.set_password(password)
+        newUser.save()
+        return newUser
+
     def __repr__(self):
         return '<%s: %s, %s>' % (self.__class__.__name__, self.name, self.email)
 
@@ -59,10 +66,4 @@ def load_user(userid):
     return User.objects(name=userid).first()
 
 login_manager.anonymous_user = Anonymous
-
-def create_user(name, email, password):
-    newUser = User(name,email)
-    newUser.set_password(password)
-    newUser.save()
-    return newUser
 

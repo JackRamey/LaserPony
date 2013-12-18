@@ -3,7 +3,7 @@ from flask.views import View
 from flask_login import login_user, logout_user
 from laserpony import app
 from laserpony.models.post import Post
-from laserpony.models.user import User, create_user
+from laserpony.models.user import User
 
 #Views
 class IndexView(View):
@@ -65,7 +65,7 @@ class SignUpView(View):
                 error = "Passwords do not match!"
                 return render_template('signup.html', error=error, args=args)
             #All checks passed, create user
-            newUser = create_user(name, email, pass1)
+            newUser = User.create_user(name, email, pass1)
             login_user(newUser)
             return redirect(url_for('index'))
         else:
