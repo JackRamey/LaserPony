@@ -1,15 +1,7 @@
-import datetime
-
 from flask_login import AnonymousUserMixin
-from util import db, login_manager
+from laserpony.util import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
-class Post(db.Document):
-    created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
-    title = db.StringField(max_length=255, required=True)
-    slug = db.StringField(max_length=255, required=True)
-    body = db.StringField(required=True)
 
 class User(db.Document):
     name = db.StringField(max_length=64, required=True)

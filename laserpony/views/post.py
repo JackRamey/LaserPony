@@ -3,7 +3,7 @@ from flask.views import View
 from flask_login import login_required, current_user
 from bson.objectid import ObjectId
 from laserpony import app
-from laserpony.models import Post
+from laserpony.models.post import Post
 
 #Posts
 class PostsView(View):

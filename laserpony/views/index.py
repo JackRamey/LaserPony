@@ -2,7 +2,8 @@ from flask import redirect, render_template, request, url_for
 from flask.views import View
 from flask_login import login_user, logout_user
 from laserpony import app
-from laserpony.models import Post, User
+from laserpony.models.post import Post
+from laserpony.models.user import User
 
 #Views
 class IndexView(View):
