@@ -1,14 +1,18 @@
 from laserpony import app
-from flask_mongoengine import MongoEngine
+from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask.ext.markdown import Markdown
+from flask_mongoengine import MongoEngine
 
-#Database
-db = MongoEngine(app)
+#Bcrypt
+bcrypt = Bcrypt(app)
 
 #Login Manager
 login_manager = LoginManager(app)
 
 #Markdown Parser
-Markdown(app)
+markdown = Markdown(app)
+
+#Database
+db = MongoEngine(app)
 

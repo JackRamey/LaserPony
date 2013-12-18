@@ -1,23 +1,22 @@
 from flask_login import AnonymousUserMixin
-from laserpony.util import db, login_manager
-from werkzeug.security import generate_password_hash, check_password_hash
+from laserpony.util import bcrypt, db, login_manager
 
 
 class User(db.Document):
     name = db.StringField(max_length=64, required=True)
     email = db.StringField(max_length=254)
     password_hash = db.StringField(required=True)
-    active = db.BooleanField()
+    active = db.BooleanField(default=False)
     admin = db.BooleanField(default=False)
     anonymous = db.BooleanField(default=False)
-    authenticated = db.BooleanField()
+    authenticated = db.BooleanField(default=False)
     author = db.BooleanField(default=False)
 
     def check_password(self, password):
-            return check_password_hash(self.password, password)
+            return bcrypt.check_password_hash(self.password, password)
 
     def set_password(self, password):
-        self.password = generate_password_hash(password)
+        self.password = bcrypt.generate_password_hash(password)
 
     def is_active(self):
         return self.active
@@ -60,4 +59,10 @@ def load_user(userid):
     return User.objects(name=userid).first()
 
 login_manager.anonymous_user = Anonymous
+
+def create_user(name, email, password):
+    newUser = User(name,email)
+    newUser.set_password(password)
+    newUser.save()
+    return newUser
 
