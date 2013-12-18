@@ -24,7 +24,7 @@ class LogInView(View):
                 error = "That user does not exist."
                 return render_template('login.html', error=error)
             else:
-                if user.password_hash == request.form['password']:
+                if user.check_password(request.form['password']):
                     login_user(user)
                     return redirect(url_for('index'))
                 else:
