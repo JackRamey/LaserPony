@@ -1,8 +1,9 @@
-from flask_login import AnonymousUserMixin
-from laserpony.util import bcrypt, db, login_manager
+from flask_login import AnonymousUserMixin, UserMixin
+from laserpony.util import bcrypt, db, login_manager, login_serializer
+from bson import ObjectId
 
 
-class User(db.Document):
+class User(db.Document, UserMixin):
     name = db.StringField(max_length=64, required=True)
     email = db.StringField(max_length=254)
     password_hash = db.StringField(required=True)
@@ -36,6 +37,10 @@ class User(db.Document):
     def get_id(self):
         return self.name
 
+    def get_auth_token(self):
+        data = [str(self.id), self.password_hash]
+        return login_serializer.dumps(data)
+
     @staticmethod
     def create_user(name, email, password):
         newUser = User(name,email)
@@ -64,6 +69,14 @@ class Anonymous(AnonymousUserMixin):
 @login_manager.user_loader
 def load_user(userid):
     return User.objects(name=userid).first()
+
+@login_manager.token_loader
+def load_token(token):
+    data = login_serializer.loads(token)
+    user = User.objects(id=ObjectId(data[0]))
+    if user and data[1] == user.password_hash:
+        return user
+    return None
 
 login_manager.anonymous_user = Anonymous
 

@@ -3,6 +3,7 @@ from flask.ext.bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask.ext.markdown import Markdown
 from flask_mongoengine import MongoEngine
+from itsdangerous import URLSafeTimedSerializer
 
 #Bcrypt
 bcrypt = Bcrypt(app)
@@ -15,4 +16,7 @@ markdown = Markdown(app)
 
 #Database
 db = MongoEngine(app)
+
+#Login Serializer
+login_serializer = URLSafeTimedSerializer(app.secret_key)
 
