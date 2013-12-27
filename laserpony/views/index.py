@@ -25,7 +25,7 @@ class LogInView(View):
                 return render_template('login.html', error=error)
             else:
                 if user.check_password(request.form['password']):
-                    login_user(user)
+                    login_user(user, remember=True)
                     return redirect(url_for('index'))
                 else:
                     error = "Username and Password combination are incorrect."

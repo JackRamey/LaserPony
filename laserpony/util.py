@@ -10,6 +10,7 @@ bcrypt = Bcrypt(app)
 
 #Login Manager
 login_manager = LoginManager(app)
+login_manager.login_view = 'login'
 
 #Markdown Parser
 markdown = Markdown(app)
