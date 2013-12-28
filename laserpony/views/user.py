@@ -61,7 +61,7 @@ class UserEdit(View):
 app.add_url_rule('/users/',
                 view_func=UsersView.as_view('users'))
 app.add_url_rule('/users/<user_id>',
-                view_func=UsersView.as_view('user'))
+                view_func=UserView.as_view('user'))
 app.add_url_rule('/users/edit/<user_id>',
                 view_func=UserEdit.as_view('user_edit'))
 
