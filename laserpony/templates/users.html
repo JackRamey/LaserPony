@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% set active_page = "users" %}
+{% block body %}
+{% if current_user.is_admin() %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Active</th>
+            <th>Admin</th>
+            <th>Authenticated</th>
+            <th>Author</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+{% for user in users %}
+        <tr>
+            <td>{{ user.email }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.id }}</td>
+            <td>{{ user.is_active() }}</td>
+            <td>{{ user.is_admin() }}</td>
+            <td>{{ user.is_authenticated() }}</td>
+            <td>{{ user.is_author() }}</td>
+            <td>
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-cog"></span> <b class="caret"></b>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{ url_for('user_edit', user_id=user.id) }}" role="button">Edit</a>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}

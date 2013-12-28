@@ -5,6 +5,7 @@ from bson.objectid import ObjectId
 from laserpony import app
 from laserpony.models.post import Post
 
+
 #Posts
 class PostsView(View):
     methods = ['GET']

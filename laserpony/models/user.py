@@ -38,7 +38,6 @@ class User(db.Document, UserMixin):
         return self.name
 
     def get_auth_token(self):
-        print('getting auth token')
         data = [str(self.id), self.password_hash]
         return login_serializer.dumps(data)
 
@@ -73,7 +72,6 @@ def load_user(userid):
 
 @login_manager.token_loader
 def load_token(token):
-    print('loading token')
     data = login_serializer.loads(token)
     user = User.objects(id=ObjectId(data[0])).first()
     if user and data[1] == user.password_hash:

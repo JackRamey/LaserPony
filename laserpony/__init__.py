@@ -21,3 +21,4 @@ if not app.debug:
 
 from views.index import *
 from views.post import *
+from views.user import *

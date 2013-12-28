@@ -1,5 +1,8 @@
 {% set navigation_bar = [
-    ( 'posts', 'Posts')
+    ('posts', 'Posts')
+] %}
+{% set admin_bar = [
+    ('users', 'Users')
 ] %}
 <!DOCTYPE html>
 <html>
@@ -30,6 +33,13 @@
                             <a href="{{ url_for(id) }}">{{ caption }}</a>
                         </li>
                     {% endfor %}
+                    {% if current_user.is_admin() %}
+                    {% for id, caption in admin_bar %}
+                        <li{% if id == active_page %} class="active"{% endif %}>
+                            <a href="{{ url_for(id) }}">{{ caption }}</a>
+                        </li>
+                    {% endfor %}
+                    {% endif %}
                     </ul>
                     <ul class="nav navbar-nav pull-right">
                     {% if current_user.is_anonymous() %}
