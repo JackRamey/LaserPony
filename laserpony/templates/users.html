@@ -2,7 +2,7 @@
 {% set active_page = "users" %}
 {% block body %}
 {% if current_user.is_admin() %}
-<table class="table table-striped">
+<table id="users-table" class="table table-striped">
     <thead>
         <tr>
             <th></th>

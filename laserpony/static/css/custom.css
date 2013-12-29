@@ -6,3 +6,8 @@
 .navbar {
     font-family: 'Ubuntu Mono', sans-serif;
 }
+
+#users-table td {
+    vertical-align: middle;
+}
+
