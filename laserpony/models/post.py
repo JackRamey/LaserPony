@@ -2,6 +2,7 @@ import datetime
 
 from laserpony.util import db
 from laserpony.models.user import User
+from laserpony.models.project import Project
 
 
 class Post(db.Document):
@@ -10,4 +11,5 @@ class Post(db.Document):
     slug = db.StringField(max_length=255, required=True)
     body = db.StringField(required=True)
     author = db.ReferenceField(User)
+    project = db.ReferenceField(Project)
 
