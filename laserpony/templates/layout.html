@@ -1,16 +1,10 @@
-{% set navigation_bar = [
-    ('posts', 'Posts')
-] %}
-{% set admin_bar = [
-    ('users', 'Users')
-] %}
 <!DOCTYPE html>
 <html>
 <head>
 </head>
     <title>{{ config['BLOG_NAME'] }}</title>
     <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.3/yeti/bootstrap.min.css" rel="stylesheet">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/sticky-footer.css') }}">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/custom.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
@@ -21,33 +15,11 @@
     </style>
 </head> 
 <body>
-{% block navigation %}
-{% endblock %}
 <div class=wrap>
     <!-- BEGIN NAVBAR -->
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
-            <a class="navbar-brand" href="{{ url_for('index') }}">{{ config['BLOG_NAME'] }}</a>
                 <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                    {% for project in navigation['projects'] %}
-                        <li {% if project.slug == active_page %} class="active"{% endif %}>
-                            <a href="{{ url_for('project', project_slug=project.slug) }}">{{ project.name }}</a>
-                        </li>
-                    {% endfor %}
-                    {% for id, caption in navigation_bar %}
-                        <li{% if id == active_page %} class="active"{% endif %}>
-                            <a href="{{ url_for(id) }}">{{ caption }}</a>
-                        </li>
-                    {% endfor %}
-                    {% if current_user.is_admin() %}
-                    {% for id, caption in admin_bar %}
-                        <li{% if id == active_page %} class="active"{% endif %}>
-                            <a href="{{ url_for(id) }}">{{ caption }}</a>
-                        </li>
-                    {% endfor %}
-                    {% endif %}
-                    </ul>
                     <ul class="nav navbar-nav pull-right">
                     {% if current_user.is_anonymous() %}
                         <li>
@@ -69,11 +41,22 @@
         </div>
     </div>
     <!-- END NAVBAR -->
-    <!-- BEGIN BODY CONTENT -->
     <div class="container">
-        {% block body %}{% endblock %}
-    </div>
+        <div class="jumbotron">
+            <h1><a href="{{ url_for('index') }}">{{ config['BLOG_NAME'] }}</a></h1>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+            {% block navigation %}
+            {% endblock %}
+            </div>
+            <!-- BEGIN BODY CONTENT -->
+            <div class="col-md-9">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
     <!-- END BODY CONTENT -->
+    </div>
 </div>
     <!-- BEGIN FOOTER -->
     <div class="footer">
