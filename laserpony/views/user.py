@@ -1,17 +1,17 @@
 from flask import redirect, render_template, request, url_for
-from flask.views import View
 from flask_login import login_required, current_user
 from bson.objectid import ObjectId
 from laserpony import app
+from laserpony.views.scaffold import BaseView
 from laserpony.models.user import User
 
 
 #User
-class UsersView(View):
+class UsersView(BaseView):
     methods = ['GET']
 
     @login_required
-    def dispatch_request(self):
+    def handle_request(self):
         users = User.objects.all()
         if current_user.is_admin():
             return render_template('users.html', users=users)
@@ -20,20 +20,20 @@ class UsersView(View):
 
 
 #User CRUD
-class UserView(View):
+class UserView(BaseView):
     methods = ['GET']
 
     @login_required
-    def dispatch_request(self, user_id):
+    def handle_request(self, user_id):
         user = User.objects.get_or_404(id=ObjectId(user_id))
         return render_template('user.html', user=user)
 
 
-class UserEdit(View):
+class UserEdit(BaseView):
     methods = ['GET', 'POST']
 
     @login_required
-    def dispatch_request(self, user_id):
+    def handle_request(self, user_id):
         if not current_user.is_admin() and current_user.id != ObjectId(user_id):
             return redirect(url_for('index'))
         user = User.objects(id=ObjectId(user_id)).first()

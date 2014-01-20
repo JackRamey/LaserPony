@@ -1,34 +1,34 @@
 from flask import redirect, render_template, request, url_for
-from flask.views import View
 from flask_login import login_required, current_user
 from bson.objectid import ObjectId
 from laserpony import app
+from laserpony.views.scaffold import BaseView
 from laserpony.models.post import Post
 
 
 #Posts
-class PostsView(View):
+class PostsView(BaseView):
     methods = ['GET']
 
-    def dispatch_request(self):
+    def handle_request(self):
         posts = Post.objects.all()
         return render_template('posts.html', posts=posts)
 
 
 #Post CRUD
-class PostView(View):
+class PostView(BaseView):
     methods = ['GET']
 
-    def dispatch_request(self, slug):
+    def handle_request(self, slug):
         post = Post.objects.get_or_404(slug=slug)
         return render_template('post.html', post=post)
 
 
-class PostCreate(View):
+class PostCreate(BaseView):
     methods = ['GET', 'POST']
 
     @login_required
-    def dispatch_request(self):
+    def handle_request(self):
         if not current_user.is_author():
             return redirect(url_for('index'))
         if request.method == 'POST':
@@ -43,11 +43,11 @@ class PostCreate(View):
             return render_template('post_create_edit.html', post=None)
 
 
-class PostEdit(View):
+class PostEdit(BaseView):
     methods = ['GET', 'POST']
 
     @login_required
-    def dispatch_request(self, post_id):
+    def handle_request(self, post_id):
         if not current_user.is_author():
             return redirect(url_for('index'))
         post = Post.objects(id=ObjectId(post_id)).first()
@@ -61,11 +61,11 @@ class PostEdit(View):
             return render_template('post_create_edit.html', post=post)
 
 
-class PostDelete(View):
+class PostDelete(BaseView):
     methods = ['GET', 'POST']
 
     @login_required
-    def dispatch_request(self, post_id):
+    def handle_request(self, post_id):
         post = Post.objects(id=ObjectId(post_id)).first()
         if current_user.is_admin():
             if request.method == 'POST':

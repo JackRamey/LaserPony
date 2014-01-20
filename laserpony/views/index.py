@@ -2,22 +2,23 @@ from flask import redirect, render_template, request, url_for
 from flask.views import View
 from flask_login import login_user, logout_user
 from laserpony import app
+from laserpony.views.scaffold import BaseView
 from laserpony.models.post import Post
 from laserpony.models.user import User
 
 #Views
-class IndexView(View):
+class IndexView(BaseView):
     methods = ['GET']
 
-    def dispatch_request(self):
+    def handle_request(self):
         posts = Post.objects.order_by('created_at').limit(app.config['NUM_POSTS_HOMEPAGE'])
         return render_template('index.html', posts=posts)
 
 #Login
-class LogInView(View):
+class LogInView(BaseView):
     methods = ['GET','POST']
 
-    def dispatch_request(self):
+    def handle_request(self):
         if request.method == 'POST':
             user = User.objects(email=request.form['email']).first()
             if user is None:
@@ -35,18 +36,18 @@ class LogInView(View):
             return render_template('login.html')
 
 #Logout
-class LogOutView(View):
+class LogOutView(BaseView):
     methods = ['GET']
 
-    def dispatch_request(self):
+    def handle_request(self):
         logout_user()
         return redirect(url_for('index'))
 
 #Sign Up
-class SignUpView(View):
+class SignUpView(BaseView):
     methods = ['GET', 'POST']
 
-    def dispatch_request(self):
+    def handle_request(self):
         return render_template('disabled.html')
         if request.method == 'POST':
             name = request.form['name']
