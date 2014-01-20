@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% block navigation %}
+<ul class="nav navbar-nav">
+    {% for project in navigation['projects'] %}
+    <li {% if project.slug == active_page %} class="active"{% endif %}>
+        <a href="{{ url_for('project', project_slug=project.slug) }}">{{ project.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
