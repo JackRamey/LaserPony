@@ -12,7 +12,7 @@ class IndexView(BaseView):
 
     def handle_request(self):
         posts = Post.objects.order_by('created_at').limit(app.config['NUM_POSTS_HOMEPAGE'])
-        return render_template('index.html', posts=posts)
+        return render_template('index.html', posts=posts, **self.context)
 
 #Login
 class LogInView(BaseView):
@@ -30,10 +30,10 @@ class LogInView(BaseView):
                     return redirect(url_for('index'))
                 else:
                     error = "Username and Password combination are incorrect."
-                    return render_template('login.html', error=error)
+                    return render_template('login.html', error=error, **self.context)
 
         else:
-            return render_template('login.html')
+            return render_template('login.html', **self.context)
 
 #Logout
 class LogOutView(BaseView):
@@ -58,20 +58,20 @@ class SignUpView(BaseView):
             user = User.objects(email=email).first()
             if user is not None:
                 error = "Email provided is already in use!"
-                return render_template('signup.html', error=error, args=args)
+                return render_template('signup.html', error=error, args=args, **self.context)
             if pass1 == '' or pass1 is None:
                 error = "You must provide a valid password!"
-                return render_template('signup.html', error=error, args=args)
+                return render_template('signup.html', error=error, args=args, **self.context)
             if pass1 != pass2:
                 error = "Passwords do not match!"
-                return render_template('signup.html', error=error, args=args)
+                return render_template('signup.html', error=error, args=args, **self.context)
             #All checks passed, create user
             newUser = User.create_user(name, email, pass1)
             login_user(newUser)
             return redirect(url_for('index'))
         else:
             args = {}
-            return render_template('signup.html', args=args)
+            return render_template('signup.html', args=args, **self.context)
 
 #Page View Rules
 app.add_url_rule('/',

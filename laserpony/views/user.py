@@ -14,7 +14,7 @@ class UsersView(BaseView):
     def handle_request(self):
         users = User.objects.all()
         if current_user.is_admin():
-            return render_template('users.html', users=users)
+            return render_template('users.html', users=users, **self.context)
         else:
             redirect(url_for('index'))
 
@@ -26,7 +26,7 @@ class UserView(BaseView):
     @login_required
     def handle_request(self, user_id):
         user = User.objects.get_or_404(id=ObjectId(user_id))
-        return render_template('user.html', user=user)
+        return render_template('user.html', user=user, **self.context)
 
 
 class UserEdit(BaseView):
@@ -55,7 +55,7 @@ class UserEdit(BaseView):
             user.save()
             return redirect(url_for('user', user_id=user.id))
         else:
-            return render_template('user_edit.html', user=user)
+            return render_template('user_edit.html', user=user, **self.context)
 
 #Page View Rules
 app.add_url_rule('/users/',

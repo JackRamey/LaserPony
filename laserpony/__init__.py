@@ -6,4 +6,5 @@ app.config.from_pyfile('laserpony.cfg', silent=False)
 
 from views.index import *
 from views.post import *
+from views.project import *
 from views.user import *

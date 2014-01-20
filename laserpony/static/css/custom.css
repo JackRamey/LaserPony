@@ -1,3 +1,7 @@
+.container {
+    max-width: 730px;
+}
+
 .navbar-inner {
     margin-left: 10%;
     margin-right: 10%;

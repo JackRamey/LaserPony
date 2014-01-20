@@ -12,16 +12,15 @@ class PostsView(BaseView):
 
     def handle_request(self):
         posts = Post.objects.all()
-        return render_template('posts.html', posts=posts)
+        return render_template('posts.html', posts=posts, **self.context)
 
 
-#Post CRUD
 class PostView(BaseView):
     methods = ['GET']
 
     def handle_request(self, slug):
         post = Post.objects.get_or_404(slug=slug)
-        return render_template('post.html', post=post)
+        return render_template('post.html', post=post, **self.context)
 
 
 class PostCreate(BaseView):
@@ -40,7 +39,7 @@ class PostCreate(BaseView):
                 newPost.save()
             return redirect(url_for('posts'))
         else:
-            return render_template('post_create_edit.html', post=None)
+            return render_template('post_create_edit.html', post=None, **self.context)
 
 
 class PostEdit(BaseView):
@@ -58,7 +57,7 @@ class PostEdit(BaseView):
             post.save()
             return redirect(url_for('post', slug=post.slug))
         else:
-            return render_template('post_create_edit.html', post=post)
+            return render_template('post_create_edit.html', post=post, **self.context)
 
 
 class PostDelete(BaseView):
@@ -76,9 +75,9 @@ class PostDelete(BaseView):
                     return redirect(url_for('posts'))
                 else:
                     error = "Confirmation text was not correct."
-                    return render_template('post_delete.html', post=post, error=error)
+                    return render_template('post_delete.html', post=post, error=error, **self.context)
             else:
-                return render_template('post_delete.html', post=post)
+                return render_template('post_delete.html', post=post, **self.context)
         else:
             return redirect(url_for('posts'))
 

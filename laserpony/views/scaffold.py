@@ -9,7 +9,10 @@ class BaseView(View):
         #Any processing that needs to happen before each request is handled
         #gets taken care of here
         projects = Project.objects
-        self.context['navigation'] = projects
+        self.context['navigation'] = {
+            'projects' : projects
+        }
+        self.context['extends_with']= "nav.html"
 
     def handle_request(self):
         """Subclasses have to override this method to implement the

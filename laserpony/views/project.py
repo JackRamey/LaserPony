@@ -11,7 +11,7 @@ class ProjectView(BaseView):
     def handle_request(self, project_slug):
         project = Project.objects.get_or_404(slug=project_slug)
         posts = Post.objects(project=project).all()
-        return render_template('project.html',project=project,posts=posts)
+        return render_template('project.html',project=project,posts=posts, **self.context)
 
 app.add_url_rule('/project/<project_slug>/',
                 view_func=ProjectView.as_view('project'))
