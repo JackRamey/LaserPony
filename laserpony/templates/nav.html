@@ -3,16 +3,26 @@
 <div class="sidebar">
     <ul class="list-group">
         {% if navigation['projects'].count() != 0 %}
+        <!-- Projects Menu Begin -->
         <li class="list-group-item parent">Projects</li>
         {% for project in navigation['projects'] %}
         <li class="list-group-item child">
-            <a href="{{ url_for('project', project_slug=project.slug) }}">{{ project.name }}</a>
+            <a href="{{ url_for('project', slug=project.slug) }}">{{ project.name }}</a>
+            {% if current_user.is_admin() %}&nbsp;<a href="{{ url_for('project_edit', slug=project.slug) }}"><span class="glyphicon glyphicon-pencil"></span></a>{% endif %}
         </li>
         {% endfor %}
+        <!-- Projects Menu End-->
         {% endif %}
         <li class="list-group-item">
             <a href="{{ url_for('posts') }}">All Posts</a>
         </li>
+        {% if current_user.is_admin() %}
+        <!-- Admin Menu Begin -->
+        <li class="list-group-item parent">Admin</li>
+        <li class="list-group-item child"><a href="{{ url_for('project_create') }}">Add Project</a></li>
+        <li class="list-group-item child"><a href="{{ url_for('users') }}">Users</a></li>
+        <!-- Admin Menu End -->
+        {% endif %}
     </ul>
 </div>
 {% endblock %}

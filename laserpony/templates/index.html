@@ -1,6 +1,7 @@
 {% extends extends_with %}
 {%block body %}
 {% for post in posts %}
+<div class="well well-sm">
 <h1>
     <a href="{{ url_for('post',slug=post.slug) }}">{{ post.title }}</a>
     {% if current_user.is_admin() %}
@@ -23,5 +24,6 @@
 {% filter markdown %}
 {{ post.body }}
 {% endfilter %}
+</div>
 {% endfor %}
 {% endblock %}

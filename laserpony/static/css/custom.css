@@ -1,5 +1,5 @@
 .container {
-    max-width: 900px;
+    max-width: 100%;
 }
 
 .jumbotron {
@@ -24,7 +24,7 @@
 }
 
 .sidebar {
-    margin-top: 21px;
+    margin-top: 0;
     width: 100%;
 }
 
