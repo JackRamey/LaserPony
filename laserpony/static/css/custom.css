@@ -24,10 +24,19 @@
 }
 
 .sidebar {
+    margin-top: 21px;
+    width: 100%;
+}
+
+li.child {
+    padding-left: 30px;
+}
+
+li.parent {
+    font-weight: bold;
 }
 
 .sidebar-wrapper {
-    position: fixed;
 }
 
 #users-table td {

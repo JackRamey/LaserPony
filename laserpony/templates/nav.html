@@ -1,14 +1,18 @@
 {% extends 'layout.html' %}
 {% block navigation %}
-<div class="sidebar-wrapper">
-    <div class="sidebar">
-        <ul class="nav nav-list">
-            {% for project in navigation['projects'] %}
-            <li {% if project.slug == active_page %} class="active"{% endif %}>
-                <a href="{{ url_for('project', project_slug=project.slug) }}">{{ project.name }}</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
+<div class="sidebar">
+    <ul class="list-group">
+        {% if projects is not defined %}
+        <li class="list-group-item parent">Projects</li>
+        {% for project in navigation['projects'] %}
+        <li class="list-group-item child">
+            <a href="{{ url_for('project', project_slug=project.slug) }}">{{ project.name }}</a>
+        </li>
+        {% endfor %}
+        {% endif %}
+        <li class="list-group-item">
+            <a href="{{ url_for('posts') }}">All Posts</a>
+        </li>
+    </ul>
 </div>
 {% endblock %}
