@@ -1,17 +1,16 @@
 {% extends extends_with %}
 {% set active_page = "posts" %}
 {%block body %}
-{% if current_user.is_admin() %}
-<div>
-    <a href="{{ url_for('post_create') }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span></a>
-</div>
-{% endif %}
+<div class="well well-sm">
 {% if posts %}
 <dl class="dl-horizontal">
 {% for post in posts %}
     <dt><a href={{ url_for('post', slug=post.slug) }}>{{ post.title }}</a></dt>
-    <dd>{{ post.created_at.strftime('%H:%M %Y-%m-%d') }}</dd>
+    <dd>by {{ post.author.name }} at {{ post.created_at.strftime('%H:%M %Y-%m-%d') }}{% if post.project %} in <a href="{{ url_for('project', slug=post.project.slug) }}">{{ post.project.name }}</a>{% endif %}</dd>
 {% endfor %}
 </dl>
+{% else %}
+<p>Nothing has been posted in this blog yet! Check back soon to see if more content has been added!</p>
 {% endif %}
+</div>
 {% endblock %}

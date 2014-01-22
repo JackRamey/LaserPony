@@ -1,5 +1,6 @@
 {% extends extends_with %}
 {% block body %}
+<div class="well well-sm">
 <h1>
     {{ post.title }}
     {% if current_user.is_admin() %}
@@ -18,8 +19,9 @@
     </div>
     {% endif %}
 </h1>
-<small>{{ post.created_at.strftime(config['DATETIME_FORMAT']) }}</small>
+<small>by {{ post.author.name }} at {{ post.created_at.strftime(config['DATETIME_FORMAT']) }}{% if post.project %} in <a href="{{ url_for('project', slug=post.project.slug) }}">{{ post.project.name }}</a>{% endif %}</small>
 {% filter markdown %}
 {{ post.body }}
 {% endfilter %}
+</div>
 {% endblock %}

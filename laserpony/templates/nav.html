@@ -16,6 +16,12 @@
         <li class="list-group-item">
             <a href="{{ url_for('posts') }}">All Posts</a>
         </li>
+        {% if current_user.is_author() %}
+        <li class="list-group-item parent">Author</li>
+        <li class="list-group-item child">
+            <a href="{{ url_for('post_create') }}">Add Post</a>
+        </li>
+        {% endif %}
         {% if current_user.is_admin() %}
         <!-- Admin Menu Begin -->
         <li class="list-group-item parent">Admin</li>
