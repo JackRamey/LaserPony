@@ -7,6 +7,7 @@
         <li class="list-group-item parent">Projects</li>
         {% for project in navigation['projects'] %}
         <li class="list-group-item child">
+            <span class="badge">{{ project.postCount() }}</span>
             <a href="{{ url_for('project', slug=project.slug) }}">{{ project.name }}</a>
             {% if current_user.is_admin() %}&nbsp;<a href="{{ url_for('project_edit', slug=project.slug) }}"><span class="glyphicon glyphicon-pencil"></span></a>{% endif %}
         </li>
