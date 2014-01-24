@@ -48,3 +48,7 @@ nosetests.xml
 
 # VirtualEnv
 venv
+
+#Image Uploads
+laserpony/static/img/upload
+
