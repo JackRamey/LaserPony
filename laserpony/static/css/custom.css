@@ -14,13 +14,19 @@
     text-decoration: none;
 }
 
+.navbar {
+    font-family: 'Ubuntu Mono', sans-serif;
+}
+
 .navbar-inner {
     margin-left: 10%;
     margin-right: 10%;
 }
 
-.navbar {
-    font-family: 'Ubuntu Mono', sans-serif;
+.navbar-items {
+    background-color: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-top: 0px;
 }
 
 .sidebar {
