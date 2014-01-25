@@ -2,7 +2,7 @@
 {% block navigation %}
 <div class="sidebar">
     <ul class="list-group">
-        <li>
+        <li class="list-group-item">
             <a href="{{ url_for('index') }}">Home</a>
         </li>
         {% if navigation['projects'].count() != 0 %}
