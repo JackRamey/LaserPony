@@ -11,7 +11,7 @@ class PostsView(BaseView):
     methods = ['GET']
 
     def handle_request(self):
-        posts = Post.objects.all()
+        posts = Post.objects.order_by('-created_at').all()
         return render_template('posts.html', posts=posts, **self.context)
 
 

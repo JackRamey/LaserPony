@@ -13,7 +13,7 @@ class ProjectView(BaseView):
 
     def handle_request(self, slug):
         project = Project.objects.get_or_404(slug=slug)
-        posts = Post.objects(project=project).all()
+        posts = Post.objects(project=project).order_by('-created_at').all()
         return render_template('project.html',project=project,posts=posts, **self.context)
 
 

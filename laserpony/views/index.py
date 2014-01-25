@@ -11,7 +11,7 @@ class IndexView(BaseView):
     methods = ['GET']
 
     def handle_request(self):
-        posts = Post.objects.order_by('created_at').limit(app.config['NUM_POSTS_HOMEPAGE'])
+        posts = Post.objects.order_by('-created_at').limit(app.config['NUM_POSTS_HOMEPAGE'])
         return render_template('index.html', posts=posts, **self.context)
 
 #Login
