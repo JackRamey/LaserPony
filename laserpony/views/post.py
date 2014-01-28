@@ -34,7 +34,8 @@ class PostCreate(BaseView):
             title = request.form['title']
             slug = request.form['slug']
             body = request.form['body']
-            newPost = Post(title=title,slug=slug,body=body)
+            author = current_user
+            newPost = Post(title=title, slug=slug, body=body, author=author)
             if current_user.is_author():
                 newPost.save()
             return redirect(url_for('posts'))
