@@ -13,3 +13,12 @@ class Post(db.Document):
     author = db.ReferenceField(User)
     project = db.ReferenceField(Project)
 
+    def __repr__(self):
+        return '<%s: %s, %s>' % (self.__class__.__name__, self.title, self.slug)
+
+    def __str__(self):
+        return '<%s: %s, %s>' % (self.__class__.__name__, self.title, self.slug)
+
+    def __unicode__(self):
+        return '<%s: %s, %s>' % (self.__class__.__name__, self.title, self.slug)
+
