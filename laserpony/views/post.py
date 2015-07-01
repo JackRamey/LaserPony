@@ -28,15 +28,16 @@ class PostCreate(BaseView):
 
     @login_required
     def handle_request(self):
-        if not current_user.is_author():
+        user = current_user._get_current_object();
+        if not user.is_author():
             return redirect(url_for('index'))
         if request.method == 'POST':
             title = request.form['title']
             slug = request.form['slug']
             body = request.form['body']
-            author = current_user
+            author = user
             newPost = Post(title=title, slug=slug, body=body, author=author)
-            if current_user.is_author():
+            if user.is_author():
                 newPost.save()
             return redirect(url_for('posts'))
         else:
